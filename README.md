@@ -5,4 +5,4 @@ based 1d/2d-coupled hydraulic model.
 
 Functions have been annotated with docstrings.
 
-Requires base libaries, python and rasterio (https://rasterio.readthedocs.io/)
+Requires base libaries, numpy and rasterio (https://rasterio.readthedocs.io/)
