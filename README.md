@@ -4,3 +4,5 @@ This folder contains a file with a collection of python functions that I have re
 based 1d/2d-coupled hydraulic model. 
 
 Functions have been annotated with docstrings.
+
+Requires base libaries, python and rasterio (https://rasterio.readthedocs.io/)
