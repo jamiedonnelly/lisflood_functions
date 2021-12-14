@@ -23,21 +23,21 @@ def create_bdy(fname: str, locations: list, data_series: list, unit: str, interv
     """
     assert len(locations) == len(series)
     file_name = fname+".bdy"
-    if len(series)==1:
+    if len(data_series)==1:
         with open(file_name,"w") as f:
             f.write("first line to be ignored.")
             f.write("\n"+locations[0])
-            f.write("\n\t"+str(len(series))+"\t"+unit)
-            for i in range(len(series)):
-                f.write("\n"+str(series[i])+"\t\t"+str(interval*i))
+            f.write("\n\t"+str(len(data_series))+"\t"+unit)
+            for i in range(len(data_series)):
+                f.write("\n"+str(data_series[i])+"\t\t"+str(interval*i))
     else:
         with open(file_name,"w") as f:
             f.write("first line to be ignored.")
             for i in range(len(series)):
                 f.write("\n"+locations[i])
-                f.write("\n\t"+str(len(series[i]))+"\t"+unit)
-                for j in range(len(series[i])):
-                    f.write("\n"+str(series[i][j])+"\t\t"+str(interval*j))
+                f.write("\n\t"+str(len(data_series[i]))+"\t"+unit)
+                for j in range(len(data_series[i])):
+                    f.write("\n"+str(data_series[i][j])+"\t\t"+str(interval*j))
                                
 ## run simulations 
 
