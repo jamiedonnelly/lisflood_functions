@@ -6,16 +6,15 @@ import rasterio as rio
 
 ## Create boundary conditions 
 
-def create_bdy(fname: str, locations: list, data_series: list, unit: str, interval: int) -> None: 
+def create_bdy(fname: str, locations: list, series: list, unit: str, interval: int) -> None: 
     """
         Function to take a collection of data and produce a .bdy file to parameterise lislfood-fp 
         simulation boundary conditions 
-
     Args:
         fname (str): Name of .bdy file to be created 
         locations (list): List of locations corresponding to values in the .bci file i.e., ['bc1','bc2',...]
-        data_series (list): List of data series representing time-varying boundary conditions i.e., 
-                            specifying time-varying water elevation values or flow discharge.                            
+        data_series (list): List of lists representing time-varying boundary conditions i.e., 
+                            specifying time-varying water elevation values or flow discharge. Must be a nested list even if only one bci.                           
         unit (str): String specifying time unit i.e., 'seconds' or 'minutes' 
         interval (int): Int specifying time interval to be combined with the units. A unit of 'seconds' 
                         and an interval of '60' means each value in the series is recorded 60 seconds apart.
@@ -23,21 +22,13 @@ def create_bdy(fname: str, locations: list, data_series: list, unit: str, interv
     """
     assert len(locations) == len(series)
     file_name = fname+".bdy"
-    if len(data_series)==1:
-        with open(file_name,"w") as f:
-            f.write("first line to be ignored.")
-            f.write("\n"+locations[0])
-            f.write("\n\t"+str(len(data_series))+"\t"+unit)
-            for i in range(len(data_series)):
-                f.write("\n"+str(data_series[i])+"\t\t"+str(interval*i))
-    else:
-        with open(file_name,"w") as f:
-            f.write("first line to be ignored.")
-            for i in range(len(series)):
-                f.write("\n"+locations[i])
-                f.write("\n\t"+str(len(data_series[i]))+"\t"+unit)
-                for j in range(len(data_series[i])):
-                    f.write("\n"+str(data_series[i][j])+"\t\t"+str(interval*j))
+    with open(file_name,"w") as f:
+        f.write("first line to be ignored.")
+        for i in range(len(series)):
+            f.write("\n"+locations[i])
+            f.write("\n\t"+str(len(series[i]))+"\t"+unit)
+            for j in range(len(series[i])):
+                f.write("\n"+str(series[i][j])+"\t\t"+str(interval*j))
                                
 ## run simulations 
 
